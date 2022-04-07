@@ -66,7 +66,7 @@ const reducer = async (prevState, { type, payload }) => {
       for (const todo of prevState.todoList) {
         newTodoList.push(todo);
       }
-      newTodoList.push({id: newTodoList.length, name: payload, done: true});
+      newTodoList.push({id: newTodoList.length, name: payload, done: false});
 
       const response = await fetch('http://localhost:3000/todo', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
