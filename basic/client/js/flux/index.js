@@ -14,6 +14,12 @@ class Dispatcher extends EventTarget {
 /**
  * Action Creator and Action Types
  */
+const ADD_TODO_ACTION_TYPE = "Add todo to server";
+export const createAddTodoAction = (todoName) => ({
+  type: ADD_TODO_ACTION_TYPE,
+  payload: todoName
+});
+
 const FETCH_TODO_ACTION_TYPE = "Fetch todo list from server";
 export const createFetchTodoListAction = () => ({
   type: FETCH_TODO_ACTION_TYPE,
@@ -42,6 +48,10 @@ const headers = {
 
 const reducer = async (prevState, { type, payload }) => {
   switch (type) {
+    case ADD_TODO_ACTION_TYPE: {
+      console.log("ADD_TODO");
+    }
+
     case FETCH_TODO_ACTION_TYPE: {
       try {
         const resp = await fetch(api).then((d) => d.json());
