@@ -81,6 +81,14 @@ const reducer = async (prevState, { type, payload }) => {
       }
       newTodoList[payload.id] = {id: payload.id, name: payload.name, done: payload.done};
 
+      const response = await fetch(`http://localhost:3000/todo/${payload.id}`, {
+        method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name: payload.name, done: payload.done})
+      });
+
       return { ...prevState, todoList: newTodoList, error: null };
     }
 
