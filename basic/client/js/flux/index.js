@@ -85,7 +85,8 @@ const reducer = async (prevState, { type, payload }) => {
       for (const todo of prevState.todoList) {
         newTodoList.push(todo);
       }
-      newTodoList[payload.id] = {id: payload.id, name: payload.name, done: payload.done};
+      const updateTodo = newTodoList.find(x => x.id == payload.id);
+      updateTodo.done = payload.done;
 
       const response = await fetch(`http://localhost:3000/todo/${payload.id}`, {
         method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
