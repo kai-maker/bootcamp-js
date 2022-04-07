@@ -1,3 +1,6 @@
+import { createUpdateTodoAction } from "../flux/index.js";
+import store from "../store.js";
+
 class Todo {
   constructor(parent, { id, name, done }) {
     this.parent = parent;
@@ -9,6 +12,19 @@ class Todo {
     if (this.mounted) return;
     // TODO: ここにTODOの削除ボタンが押されたときの処理を追記
     // TODO: ここにTODOのチェックボックスが押されたときの処理を追記
+    const removeButton = this.element.getElementsByClassName('todo-remove-button')[0];
+    const checkmark = this.element.getElementsByClassName('todo-toggle__checkmark')[0];
+    //const name = this.element.getElementsByClassName('todo-name')[0].innerHTML;
+
+    checkmark.addEventListener('click', (event) => {
+      console.log(this.props.name);
+      const updateTodoAction = createUpdateTodoAction(this.props.id, this.props.name, !this.props.done);
+      console.log(updateTodoAction);
+      store.dispatch(updateTodoAction);
+    }, false)
+
+    //removeButton
+
     this.mounted = true;
   }
 

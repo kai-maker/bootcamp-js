@@ -20,6 +20,12 @@ export const createAddTodoAction = (todoName) => ({
   payload: todoName
 });
 
+const UPDATE_TODO_ACTION_TYPE = "Update todo on server";
+export const createUpdateTodoAction = (id, name, done) => ({
+  type: UPDATE_TODO_ACTION_TYPE,
+  payload: {id, name, done}
+})
+
 const FETCH_TODO_ACTION_TYPE = "Fetch todo list from server";
 export const createFetchTodoListAction = () => ({
   type: FETCH_TODO_ACTION_TYPE,
@@ -64,7 +70,18 @@ const reducer = async (prevState, { type, payload }) => {
         body: JSON.stringify({name: payload, done: false})
       });
 
-      return { ...prevState, todoList: newTodoList, error: null }
+      return { ...prevState, todoList: newTodoList, error: null };
+    }
+
+    case UPDATE_TODO_ACTION_TYPE: {
+      console.log('UPDATE_TODO');
+      let newTodoList = [];
+      for (const todo of prevState.todoList) {
+        newTodoList.push(todo);
+      }
+      newTodoList[payload.id] = {id: payload.id, name: payload.name, done: payload.done};
+
+      return { ...prevState, todoList: newTodoList, error: null };
     }
 
     case FETCH_TODO_ACTION_TYPE: {
