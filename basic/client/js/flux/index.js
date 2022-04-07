@@ -101,10 +101,15 @@ const reducer = async (prevState, { type, payload }) => {
 
     case DELETE_TODO_ACTION_TYPE: {
       console.log('DELETE_TODO');
-      const response = await fetch(`http://localhost:3000/todo/${payload}`, {
+      try {
+        const response = await fetch(`http://localhost:3000/todo/${payload}`, {
         method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
       });
-      return prevState;
+        const resp = await fetch(api).then((d) => d.json());
+        return { todoList: resp.todoList, error: null };
+      } catch (err) {
+        return { ...prevState, error: err };
+      }
     }
 
     case FETCH_TODO_ACTION_TYPE: {
