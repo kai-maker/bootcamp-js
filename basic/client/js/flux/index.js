@@ -51,10 +51,10 @@ const reducer = async (prevState, { type, payload }) => {
     case ADD_TODO_ACTION_TYPE: {
       console.log("ADD_TODO");
       let newTodoList = [];
-      for (const todo in prevState.todoList) {
+      for (const todo of prevState.todoList) {
         newTodoList.push(todo);
       }
-      newTodoList.push(payload)
+      newTodoList.push({id: newTodoList.length, name: payload, done: true});
       return { ...prevState, todoList: newTodoList, error: null }
     }
 
