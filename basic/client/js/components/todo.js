@@ -1,4 +1,4 @@
-import { createUpdateTodoAction } from "../flux/index.js";
+import { createUpdateTodoAction, createDeleteTodoAction } from "../flux/index.js";
 import store from "../store.js";
 
 class Todo {
@@ -18,10 +18,15 @@ class Todo {
 
     checkmark.addEventListener('click', (event) => {
       console.log(this.props.name);
-      const updateTodoAction = createUpdateTodoAction(this.props.id, this.props.name, !this.props.done);
+      const updateTodoAction = createUpdateTodoAction(this.props.id, this.props.name, !this.props.done); //Doneを反転
       console.log(updateTodoAction);
       store.dispatch(updateTodoAction);
-    }, false)
+    }, false);
+
+    removeButton.addEventListener('click', (event) => {
+      const deleteTodoAction = createDeleteTodoAction(this.props.id);
+      store.dispatch(deleteTodoAction);
+    });
 
     //removeButton
 

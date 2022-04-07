@@ -24,6 +24,12 @@ const UPDATE_TODO_ACTION_TYPE = "Update todo on server";
 export const createUpdateTodoAction = (id, name, done) => ({
   type: UPDATE_TODO_ACTION_TYPE,
   payload: {id, name, done}
+});
+
+const DELETE_TODO_ACTION_TYPE = "Delete todo from server";
+export const createDeleteTodoAction = (id) => ({
+  type: DELETE_TODO_ACTION_TYPE,
+  payload: id
 })
 
 const FETCH_TODO_ACTION_TYPE = "Fetch todo list from server";
@@ -90,6 +96,14 @@ const reducer = async (prevState, { type, payload }) => {
       });
 
       return { ...prevState, todoList: newTodoList, error: null };
+    }
+
+    case DELETE_TODO_ACTION_TYPE: {
+      console.log('DELETE_TODO');
+      const response = await fetch(`http://localhost:3000/todo/${payload}`, {
+        method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+      });
+      return prevState;
     }
 
     case FETCH_TODO_ACTION_TYPE: {
