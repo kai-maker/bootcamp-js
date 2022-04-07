@@ -50,6 +50,12 @@ const reducer = async (prevState, { type, payload }) => {
   switch (type) {
     case ADD_TODO_ACTION_TYPE: {
       console.log("ADD_TODO");
+      let newTodoList = [];
+      for (const todo in prevState.todoList) {
+        newTodoList.push(todo);
+      }
+      newTodoList.push(payload)
+      return { ...prevState, todoList: newTodoList, error: null }
     }
 
     case FETCH_TODO_ACTION_TYPE: {
